@@ -1,4 +1,5 @@
 import requests
+import pandas as pd
 from bs4 import BeautifulSoup
 
 r = requests.get('http://www.yangtse.com/')
@@ -29,28 +30,31 @@ first_text=first_result.find('div',{'class':'box-text-text'}).text
 #print(first_date)
 #print(first_text)
 
-'''
-second_result = results2[0]
-#print(first_result)
-second_link=second_result.find('a').text
-second_date=second_result.find('span').text
-second_text=second_result.find('div',{'class':'box-text-text'}).text
-'''
+# second_result = results2[0]
+#
+# second_link=second_result.find('div',{'class': 'box2-name'}).text
+#
+# second_text=second_result.find('div',{'class':'box2-title'}).text
+#
+# print(second_link)
+#
+# print(second_text)
+
+#main > div.main-right > div.main-right-main > div:nth-child(6) > div.box2-title > a
+#main > div.main-right > div.main-right-main > div:nth-child(6) > div.box2-title > a
+
+
 
 def news_stand(results,results2):
-    while len(results + results2) <= 100: #Keeping it 100
-        for x in range(0,len(results)):
+    top_one_hundred = []
+
+    for x in range(0,len(results)):
+        while len(top_one_hundred) <= 98: #final iteration adds 2
             section1=results[x]
-            print(
-                'Title: ' + section1.find('a').text + '. '
-                'Date: ' + section1.find('span').text + '. '
-                'Article: ' + section1.find('div', {'class':'box-text-text'}).text + '. '
-                )
-        for y in range(0,len(results2)):
-            section2=results2[y]
-            print(
-                'Title: ' + section2.find('div', {'class':'box2 name'})..text + '. '
-                'Date: ' + 'Unlisted Date. '
-                'Article: ' + section2.find('div', {'class':'box-text-text'}).text + '. '
-                )
+            section2=results2[x]
+            top_one_hundred.append('Title: ' + section1.find('a').text + ' , ' + 'Date: ' + section1.find('span').text + ' , ' + 'Article: ' + section1.find('div', {'class':'box-text-text'}).text)
+            top_one_hundred.append('Title: ' + section2.find('div',{'class': 'box2-name'}).text + ' , ' + 'Date: ' + 'Unlisted Date , ' + 'Article: ' + section2.find('div',{'class':'box2-title'}).text )
+            print(top_one_hundred)
+            print(len(top_one_hundred))
+
 news_stand(results,results2)
