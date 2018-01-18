@@ -25,7 +25,32 @@ first_link=first_result.find('a').text
 first_date=first_result.find('span').text
 first_text=first_result.find('div',{'class':'box-text-text'}).text
 
-def 
-print(first_link)
-print(first_date)
-print(first_text)
+#print(first_link)
+#print(first_date)
+#print(first_text)
+
+'''
+second_result = results2[0]
+#print(first_result)
+second_link=second_result.find('a').text
+second_date=second_result.find('span').text
+second_text=second_result.find('div',{'class':'box-text-text'}).text
+'''
+
+def news_stand(results,results2):
+    while len(results + results2) <= 100: #Keeping it 100
+        for x in range(0,len(results)):
+            section1=results[x]
+            print(
+                'Title: ' + section1.find('a').text + '. '
+                'Date: ' + section1.find('span').text + '. '
+                'Article: ' + section1.find('div', {'class':'box-text-text'}).text + '. '
+                )
+        for y in range(0,len(results2)):
+            section2=results2[y]
+            print(
+                'Title: ' + section2.find('div', {'class':'box2 name'})..text + '. '
+                'Date: ' + 'Unlisted Date. '
+                'Article: ' + section2.find('div', {'class':'box-text-text'}).text + '. '
+                )
+news_stand(results,results2)
