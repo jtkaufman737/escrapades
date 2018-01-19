@@ -2,59 +2,107 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 
-r = requests.get('http://www.yangtse.com/')
+r = requests.get('http://www.yangtse.com/app/health/')
 soup = BeautifulSoup(r.text,'html.parser')
-'''
-//*[@id="main"]/div[2]/div[7] - main
- //*[@id="main"]/div[2]/div[7]/div[1] - box white
-   //*[@id="main"]/div[2]/div[7]/div[1]/div[2] - box text
-    //*[@id="main"]/div[2]/div[7]/div[1]/div[2]/div[1] title
-    //*[@id="main"]/div[2]/div[7]/div[1]/div[2]/div[2] time
-    //*[@id="main"]/div[2]/div[7]/div[1]/div[2]/div[3] text
-'''
+newsitems = soup.find_all('div',attrs={'class':'box'})
 
-#print(r.text[0:500])
-#print(soup)
 
-results = soup.find_all('div', attrs={'class':'box white'})
-results2 = soup.find_all('div', attrs={'class':'box2 white'})
-#print(len(results) + len(results2))
 
-first_result = results[0]
-#print(first_result)
-first_link=first_result.find('a').text
-first_date=first_result.find('span').text
-first_text=first_result.find('div',{'class':'box-text-text'}).text
+articles = []
+x=0
+z=0
+y=2
+w=0
 
-#print(first_link)
-#print(first_date)
-#print(first_text)
-
-# second_result = results2[0]
 #
-# second_link=second_result.find('div',{'class': 'box2-name'}).text
-#
-# second_text=second_result.find('div',{'class':'box2-title'}).text
-#
-# print(second_link)
-#
-# print(second_text)
+# for x in range(0,20):
+#     a=0
+#     r = requests.get('http://www.yangtse.com/app/health/')
+#     soup = BeautifulSoup(r.text,'html.parser')
+#     newsitems = soup.find_all('div',attrs={'class':'box'})
+#     curr_newsitem = newsitems[a]
+#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+#     link=curr_newsitem.find('a')['href']
+#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+#     articles.append((title,link,date))
+#     x+=1
+#     a+=1
+# for x in range(21,40):
+#     b=0
+#     r = requests.get('http://www.yangtse.com/app/health/index_2.html')
+#     soup = BeautifulSoup(r.text,'html.parser')
+#     newsitems = soup.find_all('div',attrs={'class':'box'})
+#     curr_newsitem = newsitems[b]
+#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+#     link=curr_newsitem.find('a')['href']
+#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+#     articles.append((title,link,date))
+#     x+=1
+#     b+=1
+# for x in range(41,60):
+#     c=0
+#     r = requests.get('http://www.yangtse.com/app/health/index_3.html')
+#     soup = BeautifulSoup(r.text,'html.parser')
+#     newsitems = soup.find_all('div',attrs={'class':'box'})
+#     curr_newsitem = newsitems[c]
+#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+#     link=curr_newsitem.find('a')['href']
+#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+#     articles.append((title,link,date))
+#     x+=1
+#     c+=1
+# for x in range(61,80):
+#     d=0
+#     r = requests.get('http://www.yangtse.com/app/health/index_4.html')
+#     soup = BeautifulSoup(r.text,'html.parser')
+#     newsitems = soup.find_all('div',attrs={'class':'box'})
+#     curr_newsitem = newsitems[d]
+#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+#     link=curr_newsitem.find('a')['href']
+#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+#     articles.append((title,link,date))
+#     d+=1
+# for x in range(81,100):
+#     e=0
+#     r = requests.get('http://www.yangtse.com/app/health/index_5.html')
+#     soup = BeautifulSoup(r.text,'html.parser')
+#     newsitems = soup.find_all('div',attrs={'class':'box'})
+#     curr_newsitem = newsitems[x]
+#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+#     link=curr_newsitem.find('a')['href']
+#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+#     articles.append((title,link,date))
+#     x+=1
+#     print(articles)
 
-#main > div.main-right > div.main-right-main > div:nth-child(6) > div.box2-title > a
-#main > div.main-right > div.main-right-main > div:nth-child(6) > div.box2-title > a
+for z in range(0,20): #handle statically
+    r = requests.get('http://www.yangtse.com/app/health/')
+    soup = BeautifulSoup(r.text,'html.parser')
+    newsitems = soup.find_all('div',attrs={'class':'box'})
+    curr_newsitem = newsitems[x]
+    title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+    link=curr_newsitem.find('a')['href']
+    date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+    articles.append((title,link,date))
+    z+=1
+    x+=1
+for z in range(21,101):
+    stry=str(y)  #handle somewhat dynamically
+    r = requests.get('http://www.yangtse.com/app/health/index_'+ stry + '.html')
+    soup = BeautifulSoup(r.text,'html.parser')
+    newsitems = soup.find_all('div',attrs={'class':'box'})
+    curr_newsitem = newsitems[w]
+    title=curr_newsitem.find('div',{'class':'box-text-title'}).text
+    link=curr_newsitem.find('a')['href']
+    date=curr_newsitem.find('div',{'class':'box-text-time'}).text
+    articles.append((title,link,date))
+    z+=1
+    w+=1
+    if w%20==0:
+        w-=20
+        y+=1
+        z+=1
 
 
 
-def news_stand(results,results2):
-    top_one_hundred = []
-
-    for x in range(0,len(results)):
-        while len(top_one_hundred) <= 98: #final iteration adds 2
-            section1=results[x]
-            section2=results2[x]
-            top_one_hundred.append('Title: ' + section1.find('a').text + ' , ' + 'Date: ' + section1.find('span').text + ' , ' + 'Article: ' + section1.find('div', {'class':'box-text-text'}).text)
-            top_one_hundred.append('Title: ' + section2.find('div',{'class': 'box2-name'}).text + ' , ' + 'Date: ' + 'Unlisted Date , ' + 'Article: ' + section2.find('div',{'class':'box2-title'}).text )
-            print(top_one_hundred)
-            print(len(top_one_hundred))
-
-news_stand(results,results2)
+print(len(articles))
