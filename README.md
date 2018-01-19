@@ -1,6 +1,6 @@
 / *    NOTES    * /
 
-----------------  SETUP  --------------------------------------------------
+----------------  SETUP  ----------------
 Setup is predicated on the following
      > Download scrapades directory
      > Enter terminal
@@ -12,12 +12,12 @@ Using Pip-Installer
      > pip install pandas
      > pip install requests
 
--- ----------   RUNNING  ---------------------------------------------------
+-- ----------   RUNNING  ---------------------- 
     > From the command line after entering your virtualenv, enter python main.py into terminal
     > This generates the csv.file dated with todays date
 
 
--- ---------- DEVELOPER NOTES ----------------------------------------------
+-- ---------- DEVELOPER NOTES -------------------
     > Initially, I thought this was a scraping application assignment - if you
     ran into my earlier submission, I appreciate the chance to clarify. As luck
     would have it, your original assignment was more manageable than the territory
