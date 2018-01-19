@@ -1,80 +1,20 @@
 import requests
 import pandas as pd
+import datetime as dt
 from bs4 import BeautifulSoup
 
+# -- vars --
 r = requests.get('http://www.yangtse.com/app/health/')
 soup = BeautifulSoup(r.text,'html.parser')
 newsitems = soup.find_all('div',attrs={'class':'box'})
-
-
-
 articles = []
+now=str(dt.datetime.now())
 x=0
 z=0
 y=2
 w=0
 
-#
-# for x in range(0,20):
-#     a=0
-#     r = requests.get('http://www.yangtse.com/app/health/')
-#     soup = BeautifulSoup(r.text,'html.parser')
-#     newsitems = soup.find_all('div',attrs={'class':'box'})
-#     curr_newsitem = newsitems[a]
-#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
-#     link=curr_newsitem.find('a')['href']
-#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
-#     articles.append((title,link,date))
-#     x+=1
-#     a+=1
-# for x in range(21,40):
-#     b=0
-#     r = requests.get('http://www.yangtse.com/app/health/index_2.html')
-#     soup = BeautifulSoup(r.text,'html.parser')
-#     newsitems = soup.find_all('div',attrs={'class':'box'})
-#     curr_newsitem = newsitems[b]
-#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
-#     link=curr_newsitem.find('a')['href']
-#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
-#     articles.append((title,link,date))
-#     x+=1
-#     b+=1
-# for x in range(41,60):
-#     c=0
-#     r = requests.get('http://www.yangtse.com/app/health/index_3.html')
-#     soup = BeautifulSoup(r.text,'html.parser')
-#     newsitems = soup.find_all('div',attrs={'class':'box'})
-#     curr_newsitem = newsitems[c]
-#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
-#     link=curr_newsitem.find('a')['href']
-#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
-#     articles.append((title,link,date))
-#     x+=1
-#     c+=1
-# for x in range(61,80):
-#     d=0
-#     r = requests.get('http://www.yangtse.com/app/health/index_4.html')
-#     soup = BeautifulSoup(r.text,'html.parser')
-#     newsitems = soup.find_all('div',attrs={'class':'box'})
-#     curr_newsitem = newsitems[d]
-#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
-#     link=curr_newsitem.find('a')['href']
-#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
-#     articles.append((title,link,date))
-#     d+=1
-# for x in range(81,100):
-#     e=0
-#     r = requests.get('http://www.yangtse.com/app/health/index_5.html')
-#     soup = BeautifulSoup(r.text,'html.parser')
-#     newsitems = soup.find_all('div',attrs={'class':'box'})
-#     curr_newsitem = newsitems[x]
-#     title=curr_newsitem.find('div',{'class':'box-text-title'}).text
-#     link=curr_newsitem.find('a')['href']
-#     date=curr_newsitem.find('div',{'class':'box-text-time'}).text
-#     articles.append((title,link,date))
-#     x+=1
-#     print(articles)
-
+# -- do work --
 for z in range(0,20): #handle statically
     r = requests.get('http://www.yangtse.com/app/health/')
     soup = BeautifulSoup(r.text,'html.parser')
@@ -104,5 +44,5 @@ for z in range(21,101):
         z+=1
 
 
-
-print(len(articles))
+extra_extra = pd.DataFrame(articles,columns=['Title','Link','Date'])
+extra_extra.to_csv('yangste_news_' + now + '.csv',index=False,encoding='utf-8')
