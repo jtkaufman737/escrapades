@@ -8,6 +8,7 @@ r = requests.get('http://www.yangtse.com/app/health/')
 soup = BeautifulSoup(r.text,'html.parser')
 newsitems = soup.find_all('div',attrs={'class':'box'})
 articles = []
+articles_dict = {}
 now=str(dt.datetime.now())
 x=0
 z=0
@@ -43,6 +44,20 @@ def scrape:
             w-=20
             y+=1
             z+=1
+
+for item in newsitems:
+  articles_dict={}
+  articles_dict['title']=title
+  articles_dict['link']=link
+  articles_dict['date']=date
+
+  l.append(articles_dict)
+  return l
+
+if __name__ == "__main__":
+    print(scrape())
+
+
 
 
 extra_extra = pd.DataFrame(articles,columns=['Title','Link','Date'])
