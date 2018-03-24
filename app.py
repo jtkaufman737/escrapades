@@ -1,22 +1,27 @@
+from flask import Flask, jsonify
 import requests
 import pandas as pd
 import datetime as dt
 from bs4 import BeautifulSoup
 
-
-# -- vars --
+app = Flask(__name__)
 r = requests.get('http://www.yangtse.com/app/health/')
 soup = BeautifulSoup(r.text,'html.parser')
 newsitems = soup.find_all('div',attrs={'class':'box'})
 articles = []
 articles_dict = {}
+
 now=str(dt.datetime.now())
-x=0
-z=0
-y=2
-w=0
+
+
+@app.route('/')
 
 def Scrape ():
+    x=0
+    z=0
+    y=2
+    w=0
+    l=[]
     d = {}
     # -- do work --
     for z in range(0,20): #handle statically
@@ -31,7 +36,7 @@ def Scrape ():
         d['link']=link
         d['date']=date
         articles.append((title,link,date))
-        l.append(d)
+        # l.add(d)
         z+=1
         x+=1
     for z in range(21,101):
@@ -53,12 +58,18 @@ def Scrape ():
             w-=20
             y+=1
             z+=1
-        l.append(d)
-    return l
+        # l.add(d)
+    return articles
 
 
 if __name__ == "__main__":
-    print(scrape())
+    print(Scrape())
 
 extra_extra = pd.DataFrame(articles,columns=['Title','Link','Date'])
 extra_extra.to_csv('yangste_news_' + now + '.csv',index=False,encoding='utf-8')
+
+def index():
+    return jsonify(Product=Scrape())
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=5000)
