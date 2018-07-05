@@ -16,7 +16,7 @@ z=0
 y=2
 w=0
 
-def Scrape ():
+def scrape ():
     d = {}
     # -- do work --
     for z in range(0,20): #handle statically
