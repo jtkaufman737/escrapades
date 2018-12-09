@@ -11,13 +11,13 @@ newsitems = soup.find_all('div',attrs={'class':'box'})
 articles = []
 articles_dict = {}
 now=str(dt.datetime.now())
-x=0
-z=0
-y=2
-w=0
 
 def scrape ():
     d = {}
+    x=0
+    z=0
+    y=2
+    w=0
     # -- do work --
     for z in range(0,20): #handle statically
         r = requests.get('http://www.yangtse.com/app/health/')
@@ -31,7 +31,7 @@ def scrape ():
         d['link']=link
         d['date']=date
         articles.append((title,link,date))
-        l.append(d)
+        #l.append(d)
         z+=1
         x+=1
     for z in range(21,101):
@@ -53,8 +53,8 @@ def scrape ():
             w-=20
             y+=1
             z+=1
-        l.append(d)
-    return l
+        #l.append(d)
+    return articles
 
 
 if __name__ == "__main__":
